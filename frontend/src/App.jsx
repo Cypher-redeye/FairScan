@@ -87,7 +87,9 @@ function App() {
     formData.append('protected_col', protectedCol);
 
     try {
-      const res = await fetch('http://localhost:8000/api/audit', {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      const res = await fetch(`${API_BASE_URL}/api/audit`, {
         method: 'POST',
         body: formData,
       });
@@ -105,8 +107,9 @@ function App() {
         explanation: "<em>AI Explanation temporarily unavailable due to API rate limits. Please wait 15-30 seconds and try again.</em>", 
         recommendations: ["Wait for API rate limit to reset.", "Retry the audit in a few moments."] 
       };
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       try {
-        const explainRes = await fetch('http://localhost:8000/api/explain', {
+        const explainRes = await fetch(`${API_BASE_URL}/api/explain`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
