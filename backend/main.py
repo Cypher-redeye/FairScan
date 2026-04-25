@@ -21,6 +21,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+async def health_check():
+    # Lightweight endpoint used to keep the Render free tier awake
+    return {"status": "awake", "service": "FairScan Backend"}
+
 def validate_columns(df: pd.DataFrame, outcome_col: str, protected_col: str):
     errors = []
     
