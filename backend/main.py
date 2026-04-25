@@ -16,7 +16,7 @@ app = FastAPI(title="FairScan API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "https://fairscan-demo.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -98,6 +98,10 @@ def encode_outcome(df: pd.DataFrame, outcome_col: str):
 
 @app.post("/api/audit")
 async def run_audit(file: UploadFile = File(...), outcome_col: str = Form(...), protected_col: str = Form(...)):
+    # Security: Enforce 50MB file size limit to prevent DoS (Out of Memory)
+    if getattr(file, 'size', 0) > 50 * 1024 * 1024:
+        return {"success": False, "errors": ["File too large. Maximum allowed size is 50MB."]}
+        
     try:
         df = pd.read_csv(file.file)
     except Exception as e:
@@ -125,9 +129,10 @@ async def run_audit(file: UploadFile = File(...), outcome_col: str = Form(...), 
             "rate": float(row['rate'])
         })
         
-    # Fairlearn metrics calculated manually to avoid scipy dependency
+    # Calculate base rates for DIR and DPD
+    # Note: We must calculate these manually because installing the official 'fairlearn' 
+    # package requires 'scipy', which fails to compile on Windows without C++ Build Tools.
     rates = [stat["rate"] for stat in group_stats]
-    
     if len(rates) > 0:
         max_rate = max(rates)
         min_rate = min(rates)
@@ -136,7 +141,7 @@ async def run_audit(file: UploadFile = File(...), outcome_col: str = Form(...), 
     else:
         dpd = 0.0
         dir_ratio = 1.0
-        
+
     eod = dpd * 0.8  # Proxy for dashboard visualization without y_true
     
     metrics = {
@@ -220,7 +225,9 @@ async def explain_results(payload: dict):
             ),
         )
         
+        # Since response_mime_type="application/json" is set, Gemini strictly returns JSON
         text = response.text.strip()
+        # Fallback cleanup just in case
         if text.startswith("```json"):
             text = text[7:]
         if text.endswith("```"):
