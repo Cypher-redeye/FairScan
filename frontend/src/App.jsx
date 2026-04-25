@@ -107,7 +107,6 @@ function App() {
         explanation: "<em>AI Explanation temporarily unavailable due to API rate limits. Please wait 15-30 seconds and try again.</em>", 
         recommendations: ["Wait for API rate limit to reset.", "Retry the audit in a few moments."] 
       };
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       try {
         const explainRes = await fetch(`${API_BASE_URL}/api/explain`, {
           method: 'POST',
