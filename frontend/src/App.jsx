@@ -87,7 +87,7 @@ function App() {
     formData.append('protected_col', protectedCol);
 
     try {
-      const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const rawApiUrl = import.meta.env.VITE_API_URL || 'https://fairscan-116d.onrender.com';
       const API_BASE_URL = rawApiUrl.replace(/\/$/, '');
       console.log("Connecting to backend at:", API_BASE_URL);
       
