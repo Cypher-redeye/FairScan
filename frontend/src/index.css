@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #F7F6F3;
+    --card: #FFFFFF;
+    --border: #E5E5E3;
+    --border-light: #EDEDEB;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6B6B;
+    --text-tertiary: #9B9B9B;
+    --accent: #2D2D2D;
+    --accent-hover: #1A1A1A;
+    --green: #166534;
+    --green-bg: #F0FDF4;
+    --green-border: #BBF7D0;
+    --amber: #D97706;
+    --amber-bg: #FFFBEB;
+    --amber-border: #FDE68A;
+    --red: #B91C1C;
+    --red-bg: #FEF2F2;
+    --red-border: #FECACA;
+  }
+  body {
+    @apply bg-[var(--bg)] text-[var(--text-primary)] antialiased font-sans;
+  }
+}
+
+@layer components {
+  .btn-nav {
+    @apply flex items-center gap-2 px-3.5 py-1.5 rounded-md text-[0.87rem] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg)] hover:text-[var(--text-primary)];
+  }
+  .btn-nav.active {
+    @apply bg-[var(--bg)] text-[var(--text-primary)];
+  }
+  .card {
+    @apply bg-[var(--card)] border border-[var(--border)] rounded-xl shadow-sm;
+  }
+  .card-header {
+    @apply flex items-center justify-between flex-wrap gap-2 mb-5;
+  }
+  .card-title {
+    @apply text-[1.05rem] font-[650] tracking-tight;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 w-full py-[11px] px-5 rounded-lg bg-[var(--accent)] text-white text-[0.9rem] font-semibold transition-all hover:bg-[var(--accent-hover)] disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .form-select {
+    @apply w-full py-[9px] pr-8 pl-3 border border-[var(--border)] rounded-md bg-[var(--card)] text-[0.87rem] text-[var(--text-primary)] appearance-none cursor-pointer transition-colors hover:border-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:ring-[3px] focus:ring-[rgba(45,45,45,0.06)] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-[3px] rounded-full text-[0.73rem] font-[650] tracking-wide whitespace-nowrap;
+  }
+  .badge-red {
+    @apply bg-[var(--red-bg)] text-[var(--red)] border border-[var(--red-border)];
+  }
+  .badge-amber {
+    @apply bg-[var(--amber-bg)] text-[var(--amber)] border border-[var(--amber-border)];
+  }
+  .badge-green {
+    @apply bg-[var(--green-bg)] text-[var(--green)] border border-[var(--green-border)];
+  }
+  .status-indicator {
+    @apply inline-flex items-center px-2.5 py-[2px] rounded-full text-[0.73rem] font-[650];
+  }
+  .metric-table th {
+    @apply text-left text-[0.73rem] font-[650] text-[var(--text-tertiary)] uppercase tracking-wider pb-2.5 border-b border-[var(--border)];
+  }
+  .metric-table td {
+    @apply py-3.5 border-b border-[var(--border-light)] align-top;
+  }
+}
