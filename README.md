@@ -84,8 +84,24 @@ http://localhost:5173
 - Upload CSV dataset
 - View bias metrics and Gemini explanations
 
+## 📸 Screenshots
 
+### 🔹 Upload Dataset Interface
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/2a413d3e-6a67-4b96-ab18-7367befb67c9" />
 
+### 🔹 Dataset Loaded & Configuration
+<img width="1919" height="928" alt="image" src="https://github.com/user-attachments/assets/efbf1ea5-95ac-43a9-9ee1-9873f5604b0b" />
+
+### 🔹 Bias Analysis Dashboard
+<img width="1914" height="980" alt="image" src="https://github.com/user-attachments/assets/93a8858c-3b07-4c2b-90e2-9ba24dd898cf" />
+
+## ⚠️ Limitations
+
+- Results depend heavily on dataset quality and completeness
+- Gemini explanations may vary slightly due to generative nature
+- Currently supports CSV datasets only
+- Real-time performance may vary for very large datasets
+- 
 ---
 
 *If you are looking for the tags to add to the GitHub "About" section, here they are:*
