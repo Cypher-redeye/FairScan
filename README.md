@@ -30,6 +30,62 @@ FairScan helps organizations detect hidden bias in their datasets and AI models 
 - **SDG 10** — Reduced Inequalities
 - **SDG 16** — Peace, Justice and Strong Institutions
 
+## 🚀 Run Locally
+
+Follow these steps to run FairScan on your system:
+
+### 1. Clone the Repository
+git clone https://github.com/Cypher-redeye/FairScan.git
+cd FairScan
+
+---
+
+### 2. Backend Setup (FastAPI)
+
+cd backend
+
+Create virtual environment:
+python -m venv venv
+
+Activate environment:
+# Windows
+venv\Scripts\activate
+
+Install dependencies:
+pip install -r requirements.txt
+
+Create `.env` file and add:
+GEMINI_API_KEY=your_api_key_here
+
+Run server:
+python main.py
+
+Backend will run on:
+http://localhost:8000
+
+---
+
+### 3. Frontend Setup (React + Vite)
+
+Open a new terminal:
+
+cd frontend
+npm install
+npm run dev
+
+Frontend will run on:
+http://localhost:5173
+
+---
+
+### 4. Test the App
+
+- Open frontend
+- Upload CSV dataset
+- View bias metrics and Gemini explanations
+
+
+
 ---
 
 *If you are looking for the tags to add to the GitHub "About" section, here they are:*
