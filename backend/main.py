@@ -214,11 +214,12 @@ async def explain_results(payload: dict):
         {json.dumps(payload.get('groupStats'), indent=2)}
         
         Please provide:
-        1. A highly detailed, professional paragraph explaining what these metrics mean. Use HTML <strong> tags to highlight key numbers, group names, and important phrases (e.g., <strong>statistically significant disparities</strong>, <strong>EEOC four-fifths rule</strong>, <strong>30.4%</strong>). Compare the highest and lowest groups explicitly.
-        2. Three highly specific, actionable machine learning recommendations to mitigate this bias (e.g. re-weighting, threshold calibration, removing proxy variables).
+        1. A highly detailed, professional explanation of what these metrics mean. VERY IMPORTANT: Do NOT use Markdown formatting (like **bold**). Instead, exclusively use HTML <strong> tags to highlight key numbers, group names, and important phrases. Compare the highest and lowest groups explicitly.
+        2. Break the explanation into 2 or 3 readable paragraphs by inserting <br><br> between them. Do not return a single clustered block of text.
+        3. Three highly specific, actionable machine learning recommendations to mitigate this bias (e.g. re-weighting, threshold calibration, removing proxy variables).
         
         Format your response strictly as a JSON object with two keys:
-        - "explanation": A string containing the detailed HTML-formatted explanation.
+        - "explanation": A string containing the detailed HTML-formatted explanation, properly spaced with <br><br> and using <strong> tags.
         - "recommendations": An array of 3 string recommendations.
         """
         
@@ -237,7 +238,12 @@ async def explain_results(payload: dict):
             text = text[7:]
         if text.endswith("```"):
             text = text[:-3]
-        return json.loads(text.strip())
+            
+        data = json.loads(text.strip())
+        import re
+        # Safety catch: replace any rogue **text** with <strong>text</strong>
+        data["explanation"] = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', data.get("explanation", ""))
+        return data
     except Exception as e:
         import traceback
         traceback.print_exc()
