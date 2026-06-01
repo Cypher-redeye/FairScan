@@ -315,8 +315,8 @@ function App() {
                     <h2 className="text-[1.05rem] font-[700] tracking-tight">Approval Rates by Group</h2>
                     <span className="text-[0.75rem] text-[var(--text-tertiary)] font-medium">Protected attribute: {protectedCol}</span>
                   </div>
-                  <div className="flex-1 flex flex-col justify-center my-4 pl-[3.5rem] pr-2">
-                    <div className="relative w-full border-l border-b border-[var(--border)] pb-2 pl-4 min-h-[240px] pt-4 flex flex-col">
+                  <div className="flex-1 flex flex-col justify-start my-4 pl-[3.5rem] pr-2">
+                    <div className="relative w-full border-l border-b border-[var(--border)] pb-2 pl-4 min-h-[240px] pt-4 flex flex-col justify-start">
                       {/* Grid lines */}
                       {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(tick => (
                         <div key={tick} className="absolute top-0 bottom-0 border-l border-[var(--border-light)] pointer-events-none" style={{ left: `calc(${tick}% + 1rem)` }}></div>
